@@ -24,7 +24,7 @@ const Task: FC<TaskProps> = ({ valueArray, deleteTasks, completeTasks }) => {
                 {valueArray
                     .slice()
                     .reverse()
-                    .map((data, index) => (
+                    .map((data) => (
                         <motion.div
                             key={data.id}
                             initial={{ y: -10 }}
@@ -43,11 +43,10 @@ const Task: FC<TaskProps> = ({ valueArray, deleteTasks, completeTasks }) => {
                             <div>
                                 <ul>
                                     <li
-                                        className={`flex gap-4 ${
+                                        className={` ${
                                             data.complete && 'line-through'
                                         }`}
                                     >
-                                        <p>{index + 1} |</p>
                                         <p>{data.inputValue}</p>
                                     </li>
                                 </ul>
