@@ -34,10 +34,11 @@ const Task: FC<TaskProps> = ({ valueArray, deleteTasks, completeTasks }) => {
                                 opacity: 0,
                                 backgroundColor: 'red',
                             }}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: 0.4 }}
                             className={` ${
-                                data.complete && 'opacity-30'
-                            }  flex justify-between mx-4 px-4 border-[1px]  py-4 rounded-md text-xl`}
+                                data.complete &&
+                                'opacity-30 transition-opacity duration-[0.4s]'
+                            }  flex justify-between mx-4 px-4 border-[1px]  py-4 rounded-md text-xl transition-opacity duration-[0.4s]`}
                         >
                             <div>
                                 <ul>
