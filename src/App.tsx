@@ -1,5 +1,11 @@
+import SubmitForm from './components/SubmitForm';
+
 const App = () => {
-    return <div className=''>App</div>;
+    return (
+        <>
+            <SubmitForm />
+        </>
+    );
 };
 
 export default App;
