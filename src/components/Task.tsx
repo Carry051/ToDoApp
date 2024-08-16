@@ -1,41 +1,84 @@
 import { FC } from 'react';
+
 import { MdOutlineDoneOutline } from 'react-icons/md';
 import { MdDeleteOutline } from 'react-icons/md';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type TaskProps = {
     valueArray: InputsArrayProps[];
-    deleteItems: (id: string) => void;
+    deleteTasks: (id: string) => void;
+    completeTasks: (id: string) => void;
 };
 
 type InputsArrayProps = {
     id: string;
     inputValue: string;
+    complete: boolean;
 };
 
-const Task: FC<TaskProps> = ({ valueArray, deleteItems }) => {
+const Task: FC<TaskProps> = ({ valueArray, deleteTasks, completeTasks }) => {
     return (
         <>
-            {valueArray.map((data) => (
-                <div className=' flex justify-between mx-4 px-10 border-[1px] hover:border-green-400 py-4 rounded-md text-xl'>
-                    <div>
-                        <ul key={data.id}>
-                            <li>{data.inputValue}</li>
-                        </ul>
-                    </div>
+            <AnimatePresence>
+                {valueArray
+                    .slice()
+                    .reverse()
+                    .map((data, index) => (
+                        <motion.div
+                            key={data.id}
+                            initial={{ y: -10 }}
+                            animate={{ y: 0 }}
+                            exit={{
+                                x: 100,
 
-                    <div className='flex gap-6'>
-                        <button className='hover:text-green-500'>
-                            <MdOutlineDoneOutline />
-                        </button>
-                        <button
-                            className='hover:text-red-600'
-                            onClick={() => deleteItems(data.id)}
+                                backgroundColor: 'red',
+                            }}
+                            transition={{ duration: 0.3 }}
+                            className={`${
+                                data.complete && ' opacity-30'
+                            }  flex justify-between mx-4 px-4 border-[1px]  py-4 rounded-md text-xl`}
                         >
-                            <MdDeleteOutline />
-                        </button>
-                    </div>
-                </div>
-            ))}
+                            <div>
+                                <ul>
+                                    <li
+                                        className={`flex gap-4 ${
+                                            data.complete && 'line-through'
+                                        }`}
+                                    >
+                                        <p>{index + 1} |</p>
+                                        <p>{data.inputValue}</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className='flex gap-6'>
+                                <button
+                                    title='Done'
+                                    className={`${
+                                        data.complete
+                                            ? 'hover:text-blue-500'
+                                            : 'hover:text-green-500'
+                                    }`}
+                                    onClick={() => completeTasks(data.id)}
+                                >
+                                    {data.complete ? (
+                                        <IoMdCloseCircleOutline />
+                                    ) : (
+                                        <MdOutlineDoneOutline />
+                                    )}
+                                </button>
+                                <button
+                                    title='Delete'
+                                    className='hover:text-red-600'
+                                    onClick={() => deleteTasks(data.id)}
+                                >
+                                    <MdDeleteOutline />
+                                </button>
+                            </div>
+                        </motion.div>
+                    ))}
+            </AnimatePresence>
         </>
     );
 };
