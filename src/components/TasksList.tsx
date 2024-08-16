@@ -20,7 +20,7 @@ const TasksList: FC<TasksListProp> = ({
     completeTasks,
 }) => {
     return (
-        <div className='border-2 w-[50%]  my-10 rounded-md py-4 text-white flex flex-col gap-6'>
+        <div className=' w-[50%]  my-10 rounded-md py-4 text-white flex flex-col gap-6 '>
             {valueArray.length > 0 ? (
                 <Task
                     valueArray={valueArray}
